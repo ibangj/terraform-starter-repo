@@ -9,14 +9,14 @@ provider "aws" {
 resource "aws_security_group" "jenkins_sg" {
   name        = "jenkins_sg"
   description = "Allow Jenkins Traffic"
- #vpc_id      = var.vpc_id
+  #vpc_id      = var.vpc_id
 
   ingress {
     description      = "Allow from Personal CIDR block"
     from_port        = 8080
     to_port          = 8080
     protocol         = "tcp"
-    #cidr_blocks      = [var.cidr_block]
+    cidr_blocks      = [var.cidr_block]
   }
 
   ingress {
@@ -24,7 +24,7 @@ resource "aws_security_group" "jenkins_sg" {
     from_port        = 22
     to_port          = 22
     protocol         = "tcp"
-    #cidr_blocks      = [var.cidr_block]
+    cidr_blocks      = [var.cidr_block]
   }
 
   egress {
@@ -63,10 +63,10 @@ data "aws_ami" "amazon_linux" {
 
 resource "aws_instance" "web" {
   ami             = data.aws_ami.amazon_linux.id
-  instance_type   = "t2.micro"
+  instance_type   = "t2.medium"
   key_name        = var.key_name
   security_groups = [aws_security_group.jenkins_sg.name]
   tags = {
-    Name = "Jenkins"
+    Name = "Jenkins-instance"
   }
 }

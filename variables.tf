@@ -5,3 +5,11 @@ variable "aws_region" {
 variable "key_name" {
   default = "devops_iban"
 }
+
+variable "vpc_id" {
+  default = "vpc-0b839896bc0bc6f6e"
+}
+
+variable "cidr_block" {
+  default = "0.0.0.0/0"
+}
